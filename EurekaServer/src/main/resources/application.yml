@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: EurekaServer
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false   # Disable self-registration
+    fetch-registry: false         # Do not fetch registry info
+  instance:
+    hostname: localhost           # Eureka dashboard URL
