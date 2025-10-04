@@ -1,1 +1,18 @@
-spring.application.name=GenAiService
+spring:
+  application:
+    name: GenAiService   # Name in Eureka
+
+server:
+  port: 8081              # Port for this client
+
+groq:
+  api:
+    model: hsdfhadsfhkjhskjdhf
+    key: sadfasdfsdaf
+
+eureka:
+  client:
+    service-url:
+      defaultZone: https://fireurekaserver.onrender.com/eureka # Eureka server URL
+    register-with-eureka: true
+    fetch-registry: true
