@@ -26,9 +26,9 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto) throws AuthenticationException {
         log.info("In AuthController.login, {}", loginRequestDto);
         TokenResponseDto tokenResponseDto =authService.Login(loginRequestDto);
-//        if(!tokenResponseDto.isVerified()){
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not verified !!!");
-//        }
+        if(!tokenResponseDto.isVerified()){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not verified !!!");
+        }
         log.info("tokenResponseDto={}", tokenResponseDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(tokenResponseDto);
     }
