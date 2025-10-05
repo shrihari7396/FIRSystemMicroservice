@@ -25,7 +25,6 @@ public class JWTService {
     }
 
 
-    @Override
     public String generateToken(String username, String role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
@@ -40,12 +39,10 @@ public class JWTService {
                 .compact();
     }
 
-    @Override
     public String ExtractUserRole(String token) {
         return extractClaim(token, claims ->  claims.get("role", String.class));
     }
 
-    @Override
     public SecretKey getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);

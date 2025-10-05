@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: AuthService
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/your_database_name?useSSL=false&serverTimezone=UTC
+    username: root
+    password: 899961
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+
+server:
+  port: 8080
+
+jwt:
+  secret: e4b8c7a1d95b47ef98a1c25c6b69a3b54b24f5d1de0c9c86a77d8d6b6a2e83f2
