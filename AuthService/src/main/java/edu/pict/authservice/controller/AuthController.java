@@ -20,8 +20,8 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public TokenResponseDto login(@RequestBody LoginRequestDto loginRequestDto) {
-        return null;
+    public ResponseEntity<TokenResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(authService.Login(loginRequestDto));
     }
 
     @PostMapping("/register")
