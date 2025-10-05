@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: ComplaintSerivce
+
+  output:
+    ansi:
+      enabled: always
+
