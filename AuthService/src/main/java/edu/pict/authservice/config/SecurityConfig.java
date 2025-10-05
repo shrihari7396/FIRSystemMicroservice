@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+                .formLogin(AbstractHttpConfigurer::disable)
                 .build();
     }
 }

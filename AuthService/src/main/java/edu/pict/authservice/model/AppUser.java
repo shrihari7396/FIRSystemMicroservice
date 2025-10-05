@@ -38,7 +38,7 @@ public class AppUser {
     @Embedded
     private Address address;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column( nullable = false)
     private Role role;
 }
