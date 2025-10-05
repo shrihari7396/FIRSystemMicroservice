@@ -12,16 +12,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> duplicateEmail(DataIntegrityViolationException ex) {
         // You can add logic here to check if the error message contains "duplicate key" etc.
+        ex.printStackTrace();
         return ResponseEntity.status(409).body("A user with this email or username already exists.");
     }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<String> authenticationException(AuthenticationException ex) {
+        ex.printStackTrace();
         return ResponseEntity.status(401).body(ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception ex) {
+        ex.printStackTrace();
         return ResponseEntity.status(500).body("An unexpected error occurred: " + ex.getMessage());
     }
 

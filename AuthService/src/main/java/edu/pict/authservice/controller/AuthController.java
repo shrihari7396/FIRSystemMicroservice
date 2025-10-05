@@ -37,10 +37,17 @@ public class AuthController {
     public ResponseEntity<String> register(@RequestBody AppUser user) {
         AppUser saved = null;
         try {
+            user.setVerified(false);
             saved = authService.Register(user);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
         return (saved != null) ? ResponseEntity.status(HttpStatus.CREATED).body(saved.getEmail()) : null;
+    }
+
+    @PostMapping("/emailVerification")
+    public ResponseEntity<String> emailVerification(@RequestBody AppUser user) {
+        log.info("In AuthController.emailVerification, {}", user);
+        return null;
     }
 }

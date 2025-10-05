@@ -4,12 +4,14 @@ import edu.pict.authservice.dtos.LoginRequestDto;
 import edu.pict.authservice.dtos.TokenResponseDto;
 import edu.pict.authservice.model.AppUser;
 import edu.pict.authservice.repository.AppUserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class AuthService {
 
@@ -29,7 +31,9 @@ public class AuthService {
 
     public TokenResponseDto Login(LoginRequestDto loginRequestDto) throws AuthenticationException {
         AppUser appUser = appUserRepository.findByEmail(loginRequestDto.getEmail());
+        log.info("appUser={}", appUser);
         if(appUser == null){
+            log.error("appUser=null");
             throw new UsernameNotFoundException("Invalid email or password");
         }
 

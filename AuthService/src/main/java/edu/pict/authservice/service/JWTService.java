@@ -27,7 +27,7 @@ public class JWTService {
         claims.put("role", appUser.getRole());
         claims.put("username", appUser.getUsername());
         claims.put("email", appUser.getEmail());
-        claims.put("", appUser.getUuid());
+        claims.put("uuid", appUser.getUuid());
         return Jwts.builder()
                 .claims(claims)
                 .subject(appUser.getEmail())

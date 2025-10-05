@@ -2,6 +2,7 @@ package edu.pict.authservice.model;
 
 import edu.pict.authservice.model.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,21 +21,22 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
-    @Column( nullable = true)
+    @Column( nullable = false)
     private String firstName;
-    @Column( nullable = true)
+    @Column( nullable = false)
     private String lastName;
     @Column( nullable = false, unique = true)
     private String username;
     @Column( nullable = false)
     private String password;
-    @Column( nullable = true)
+    @Column( nullable = false)
     private boolean isVerified;
-    @Column( nullable = true)
+    @Column( nullable = false, unique = true)
     private String aadharNumber;
-    @Column( nullable = true)
+    @Column( nullable = false)
+    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String email;
-    @Column( nullable = true)
+    @Column( nullable = false)
     @Embedded
     private Address address;
 
