@@ -3,17 +3,22 @@ package edu.pict.authservice.model;
 import edu.pict.authservice.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class AppUser  {
+public class AppUser implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column( nullable = true)
     private String firstName;
@@ -36,4 +41,8 @@ public class AppUser  {
     @Enumerated(EnumType.STRING)
     Role role;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.toString()));
+    }
 }

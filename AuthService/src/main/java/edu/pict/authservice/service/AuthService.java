@@ -3,10 +3,13 @@ package edu.pict.authservice.service;
 import edu.pict.authservice.model.AppUser;
 import edu.pict.authservice.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthService {
+public class AuthService implements UserDetailsService {
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -17,5 +20,10 @@ public class AuthService {
 
     public AppUser Login(AppUser username) {
         return null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return appUserRepository.findByUsername(username);
     }
 }
