@@ -25,34 +25,23 @@ public class SecurityConfig {
     @Autowired
     UserDetailsService service;
 
-    public SecurityConfig(JWTFilter jwtAuthFilter) {
-        this.jwtAuthFilter = jwtAuthFilter;
-    }
 
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
-    @Autowired
-    private final JWTFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
-
-        // Add decryption filter FIRST (before JWT)
-
-        // Then JWT authentication filter
-        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
+                )
+                .build();
     }
     @Bean
     public AuthenticationProvider authenticationProvider() {

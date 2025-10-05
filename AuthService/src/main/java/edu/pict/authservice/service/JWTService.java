@@ -1,8 +1,10 @@
 package edu.pict.authservice.service;
 
 
+import edu.pict.authservice.model.AppUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,57 +26,23 @@ public class JWTService {
         this.secretKey = secretKey;
     }
 
-
-    public String generateToken(String username, String role) {
+    public String generateToken(AppUser appUser) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", role);
+        claims.put("role", appUser.getRole());
+        claims.put("username", appUser.getUsername());
+        claims.put("email", appUser.getEmail());
+        claims.put("", appUser.getUuid());
         return Jwts.builder()
-                .claims()
-                .add(claims)
-                .subject(username)
+                .claims(claims)
+                .subject(appUser.getEmail())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000*60 * 60 * 30))
-                .and()
                 .signWith(getKey())
                 .compact();
-    }
-
-    public String ExtractUserRole(String token) {
-        return extractClaim(token, claims ->  claims.get("role", String.class));
     }
 
     public SecretKey getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
-    }
-
-    public String extractUserName(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
-    public <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimResolver.apply(claims);
-    }
-
-    public Claims extractAllClaims(String token) {
-        return Jwts.parser()
-                .verifyWith(getKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-    }
-
-    public boolean validateToken(String token, UserDetails userDetails) {
-        final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
-
-    public boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
     }
 }

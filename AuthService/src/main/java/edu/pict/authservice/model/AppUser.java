@@ -19,7 +19,7 @@ public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID uuid;
     @Column( nullable = true)
     private String firstName;
     @Column( nullable = true)

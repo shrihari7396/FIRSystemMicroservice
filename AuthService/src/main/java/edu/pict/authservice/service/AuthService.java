@@ -1,5 +1,6 @@
 package edu.pict.authservice.service;
 
+import edu.pict.authservice.dtos.LoginRequestDto;
 import edu.pict.authservice.model.AppUser;
 import edu.pict.authservice.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class AuthService implements UserDetailsService {
         return appUserRepository.save(username);
     }
 
-    public AppUser Login(AppUser username) {
-        return null;
+    public AppUser Login(LoginRequestDto loginRequestDto) {
+        return appUserRepository.findByEmail(loginRequestDto.getEmail());
     }
 
     @Override
