@@ -22,4 +22,5 @@ public class TokenResponseDto {
     private String email;
     private Address address;
     private Role role;
+    private boolean isVerified;
 }

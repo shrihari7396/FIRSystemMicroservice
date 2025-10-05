@@ -4,6 +4,8 @@ import edu.pict.authservice.dtos.LoginRequestDto;
 import edu.pict.authservice.dtos.TokenResponseDto;
 import edu.pict.authservice.model.AppUser;
 import edu.pict.authservice.service.AuthService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@Slf4j
 public class AuthController {
 
     @Autowired
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<TokenResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(authService.Login(loginRequestDto));
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto) throws AuthenticationException {
+        log.info("In AuthController.login, {}", loginRequestDto);
+        TokenResponseDto tokenResponseDto =authService.Login(loginRequestDto);
+//        if(!tokenResponseDto.isVerified()){
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not verified !!!");
+//        }
+        log.info("tokenResponseDto={}", tokenResponseDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tokenResponseDto);
     }
 
     @PostMapping("/register")

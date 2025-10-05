@@ -15,7 +15,7 @@ import java.util.UUID;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class AppUser implements UserDetails {
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -39,10 +39,6 @@ public class AppUser implements UserDetails {
     private Address address;
 
     @Enumerated(EnumType.STRING)
-    Role role;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.toString()));
-    }
+    @Column( nullable = false)
+    private Role role;
 }
