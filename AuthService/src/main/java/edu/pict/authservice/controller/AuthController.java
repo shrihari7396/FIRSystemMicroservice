@@ -32,7 +32,6 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
-
         return (saved != null) ? ResponseEntity.status(HttpStatus.CREATED).body(saved.getEmail()) : null;
     }
 }
