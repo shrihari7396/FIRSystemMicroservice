@@ -1,12 +1,16 @@
 spring:
   application:
     name: AuthService
+  output:
+    ansi:
+      enabled: always
+
 
   datasource:
-    url: jdbc:mysql://localhost:3306/api
-    username: root
-    password: 899961
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:postgresql://dpg-d3h55fb3fgac739gi130-a.oregon-postgres.render.com:5432/efir_yylb
+    username: shrihari
+    password: 7cbgAIkskKPC4flVyHhXfOj7BpPtUUnV
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
@@ -14,7 +18,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
 
 server:
