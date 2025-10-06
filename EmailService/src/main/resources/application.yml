@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: EmailService
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      tls: 10

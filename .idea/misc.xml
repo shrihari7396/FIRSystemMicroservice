@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/GenAiService/pom.xml" />
         <option value="$PROJECT_DIR$/AuthService/pom.xml" />
         <option value="$PROJECT_DIR$/ComplaintSerivce/pom.xml" />
+        <option value="$PROJECT_DIR$/EmailService/pom.xml" />
       </list>
     </option>
   </component>
