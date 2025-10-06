@@ -3,7 +3,11 @@ spring:
     name: EmailService
   cache:
     type: redis
-
+  main:
+    lazy-initialization: true
+  output:
+    ansi:
+      enabled: always
   mail:
     host: sandbox.smtp.mailtrap.io
     port: 2525
@@ -23,3 +27,5 @@ spring:
       url: rediss://default:TV2p8fvgpha9agmgKxrLnNIVsjHbPhzI@redis-13987.c258.us-east-1-4.ec2.redns.redis-cloud.com:13987
       client-type: lettuce
       tls: 10
+server:
+  port: 8083
