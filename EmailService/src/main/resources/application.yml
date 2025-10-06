@@ -3,8 +3,23 @@ spring:
     name: EmailService
   cache:
     type: redis
+
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: 3e76c7f4279e21
+    password: fa3182c7077660
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
   data:
     redis:
       host: localhost
       port: 6379
+      url: rediss://default:TV2p8fvgpha9agmgKxrLnNIVsjHbPhzI@redis-13987.c258.us-east-1-4.ec2.redns.redis-cloud.com:13987
+      client-type: lettuce
       tls: 10
