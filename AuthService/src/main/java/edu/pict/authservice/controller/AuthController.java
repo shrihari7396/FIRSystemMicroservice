@@ -22,9 +22,6 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @Autowired
-    private EmailServiceFeignClient  emailServiceFeignClient;
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto) throws AuthenticationException {
         log.info("In AuthController.login, {}", loginRequestDto);
@@ -47,22 +44,4 @@ public class AuthController {
         }
         return (saved != null) ? ResponseEntity.status(HttpStatus.CREATED).body(saved.getEmail()) : null;
     }
-
-    @GetMapping("/emailVerification/sendOtp")
-    public ResponseEntity<?> emailVerification(OtpStorageRequestDto otpStorageRequestDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(emailServiceFeignClient.createOtp(otpStorageRequestDto));
-    }
-
-    @PostMapping("/emailVerificaation/validateOtp")
-    public ResponseEntity<?> validateOtp(@RequestBody OtpValidationRequestDto otpValidationRequestDto) {
-
-    }
-
-
-
-
-
-
-
-
 }
