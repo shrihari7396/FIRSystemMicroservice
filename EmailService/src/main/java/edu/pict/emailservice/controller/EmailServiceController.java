@@ -18,9 +18,14 @@ public class EmailServiceController {
     @Autowired
     private OtpService otpService;
 
-    @PostMapping("/email/genrateOtp")
-    public ResponseEntity<?> createOtp(@RequestBody OtpStorageRequestDto otpStorageRequestDto) throws MessagingException {
-        String otp = otpService.generateOtp(otpStorageRequestDto.getEmail());
+    @PostMapping("/genrateOtp")
+    public ResponseEntity<?> createOtp(@RequestBody OtpStorageRequestDto otpStorageRequestDto) {
+        String otp = null;
+        try {
+            otp = otpService.generateOtp(otpStorageRequestDto.getEmail());
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
 
         if(otp == null){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("OTP IS NULL");
@@ -28,7 +33,7 @@ public class EmailServiceController {
         return ResponseEntity.status(HttpStatus.OK).body("Otp Sent Successfully");
     }
 
-    @PostMapping()
+    @PostMapping("/validate")
     public ResponseEntity<?> validateOtp(@RequestBody OtpValidationRequestDto otpValidationRequestDto) throws MessagingException {
         if(otpService.verifyOtp(otpValidationRequestDto.getEmail(), otpValidationRequestDto.getOtp())){
             return ResponseEntity.status(HttpStatus.OK).body("Otp Sent Successfully");

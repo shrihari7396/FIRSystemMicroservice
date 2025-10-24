@@ -1,6 +1,9 @@
 package edu.pict.authservice.controller;
 
+import edu.pict.authservice.client.EmailServiceFeignClient;
 import edu.pict.authservice.dtos.LoginRequestDto;
+import edu.pict.authservice.dtos.OtpStorageRequestDto;
+import edu.pict.authservice.dtos.OtpValidationRequestDto;
 import edu.pict.authservice.dtos.TokenResponseDto;
 import edu.pict.authservice.model.AppUser;
 import edu.pict.authservice.service.AuthService;
@@ -9,10 +12,7 @@ import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,6 +21,9 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private EmailServiceFeignClient  emailServiceFeignClient;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto) throws AuthenticationException {
@@ -45,9 +48,21 @@ public class AuthController {
         return (saved != null) ? ResponseEntity.status(HttpStatus.CREATED).body(saved.getEmail()) : null;
     }
 
-    @PostMapping("/emailVerification")
-    public ResponseEntity<String> emailVerification(@RequestBody AppUser user) {
-        log.info("In AuthController.emailVerification, {}", user);
-        return null;
+    @GetMapping("/emailVerification/sendOtp")
+    public ResponseEntity<?> emailVerification(OtpStorageRequestDto otpStorageRequestDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(emailServiceFeignClient.createOtp(otpStorageRequestDto));
     }
+
+    @PostMapping("/emailVerificaation/validateOtp")
+    public ResponseEntity<?> validateOtp(@RequestBody OtpValidationRequestDto otpValidationRequestDto) {
+
+    }
+
+
+
+
+
+
+
+
 }

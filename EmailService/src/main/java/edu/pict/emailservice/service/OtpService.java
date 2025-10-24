@@ -22,7 +22,7 @@ public class OtpService {
     private EmailSenderService emailSenderService;
 
     // Read OTP TTL from application.yml/properties, default 2 minutes
-    @Value("${otp.ttl.minutes:2}")
+    @Value("${otp.ttl.minutes}")
     private int OTP_TTL_MINUTES;
 
     /**

@@ -1,3 +1,48 @@
+#spring:
+#  application:
+#    name: EmailService
+#  cache:
+#    type: redis
+#  main:
+#    lazy-initialization: true
+#  output:
+#    ansi:
+#      enabled: always
+#  mail:
+#    host: sandbox.smtp.mailtrap.io
+#    port: 2525
+#    username: 3e76c7f4279e21
+#    password: fa3182c7077660
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#      url: rediss://default:TV2p8fvgpha9agmgKxrLnNIVsjHbPhzI@redis-13987.c258.us-east-1-4.ec2.redns.redis-cloud.com:13987
+#      client-type: lettuce
+#      tls: 10
+#server:
+#  port: 8083
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: https://fireurekaserver.onrender.com/eureka # Eureka server URL
+#    register-with-eureka: true
+#    fetch-registry: true
+#
+#
+#otp:
+#  ttl:
+#    minutes: 5
+
+
 spring:
   application:
     name: EmailService
@@ -8,6 +53,8 @@ spring:
   output:
     ansi:
       enabled: always
+
+  # --- Mailtrap Configuration ---
   mail:
     host: sandbox.smtp.mailtrap.io
     port: 2525
@@ -20,19 +67,31 @@ spring:
           starttls:
             enable: true
 
+  # --- Redis Cloud Configuration ---
   data:
     redis:
-      host: localhost
-      port: 6379
-      url: rediss://default:TV2p8fvgpha9agmgKxrLnNIVsjHbPhzI@redis-13987.c258.us-east-1-4.ec2.redns.redis-cloud.com:13987
+      # default:TV2p8fvgpha9agmgKxrLnNIVsjHbPhzI@redis-13987.c258.us-east-1-4.ec2.redns.redis-cloud.com
+      # You had conflicting properties.
+      # The 'url' property is all you need for the cloud connection.
+      # It automatically overrides 'host' and 'port'.
+      url: rediss://localhost:6379
       client-type: lettuce
-      tls: 10
+      # The 'rediss://' protocol (with two 's's) automatically enables TLS/SSL.
+      # The 'tls: 10' property is not valid and has been removed.
+
+# --- Server Configuration ---
 server:
   port: 8083
 
+# --- Eureka Client Configuration ---
 eureka:
   client:
     service-url:
-      defaultZone: https://fireurekaserver.onrender.com/eureka # Eureka server URL
+      defaultZone: https://fireurekaserver.onrender.com/eureka
     register-with-eureka: true
     fetch-registry: true
+
+# --- Custom Application Properties ---
+otp:
+  ttl:
+    minutes: 5
