@@ -1,6 +1,5 @@
 package edu.pict.complaintserivce.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import edu.pict.complaintserivce.model.enums.ComplaintStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,18 +12,11 @@ import java.util.UUID;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-
 public class Complaint {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID complaintId;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "accused_id")
-//    private Person accused;
-
-    @JoinColumn(name = "victim_id")
     private UUID victim;
 
     @Column(nullable = true)
@@ -34,14 +26,6 @@ public class Complaint {
     @Enumerated(EnumType.STRING)
     private ComplaintStatus status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "incidence_id")
-    private Incidence incidence;
 
-
-//    @ManyToOne
-//    @JsonBackReference
-//    @JoinColumn(name = "user_id", nullable = true)  // Add nullable = true here
-//    private AppUser user;
 }
 

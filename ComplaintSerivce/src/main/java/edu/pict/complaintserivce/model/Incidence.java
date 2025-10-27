@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 
 @Entity
@@ -17,12 +18,15 @@ import java.util.List;
 @NoArgsConstructor
 public class Incidence {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String time;
     private String  date;
     @Embedded
     private Address address;
+    @ManyToOne
+    @JoinColumn(name = "complaint_id")
+    private Complaint complaint;
     @Column(length = 2000)
     private String description;
     @Column(nullable = true)
